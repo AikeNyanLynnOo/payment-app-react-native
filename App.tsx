@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
 import IconButton from "./components/IconButton";
+import { CardProvider } from "./hooks/CardDataProvider";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -25,7 +26,7 @@ export default function App() {
 
   if (!fontsLoaded && !error) return null;
   return (
-    <>
+    <CardProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
@@ -52,6 +53,6 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar backgroundColor={styles.colors.primary} />
-    </>
+    </CardProvider>
   );
 }

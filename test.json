@@ -1,0 +1,33 @@
+{
+  "object": "token",
+  "id": "tokn_test_5zzlrbh2u7k8ovn5j6a",
+  "livemode": false,
+  "used": false,
+  "card": {
+    "object": "card",
+    "id": "card_test_5zzlrbh2380ou0uj494",
+    "livemode": false,
+    "security_code_check": true,
+    "expiration_month": 2,
+    "expiration_year": 2027,
+    "bank": "JPMORGAN CHASE BANK N.A.",
+    "brand": "Visa",
+    "city": "Bangkok",
+    "country": "us",
+    "financing": "credit",
+    "fingerprint": "f17t9z1mfOp5+llMu1/5bFp8tAuKvjtIUaPi2GoOMRc=",
+    "first_digits": null,
+    "last_digits": "4242",
+    "name": "BUMBIN ARAUPORN",
+    "phone_number": null,
+    "postal_code": "10320",
+    "state": null,
+    "street1": null,
+    "street2": null,
+    "tokenization_method": null,
+    "created": "2024-06-05T17:43:20Z"
+  },
+  "location": "https://vault.omise.co/tokens/tokn_test_5zzlrbh2u7k8ovn5j6a",
+  "charge_status": "unknown",
+  "created": "2024-06-05T17:43:20Z"
+}

@@ -1,15 +1,19 @@
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "@/components/CustomHeader";
 import { ScreenPropType } from "@/types/PropTypes";
 import Container from "@/components/Container";
 import FormField from "@/components/FormField";
-import CardTypeRadio from "@/components/CardTypeRadio";
+import CardType from "@/components/CardType";
 import PrimaryButton from "@/components/PrimaryButton";
 import { images } from "@/constants";
+import Omise from "@/constants/omise_config";
+import Toast from "react-native-toast-message";
+import { useCardContext } from "@/hooks/useCardContext";
 
 const AddNewCard = ({ navigation }: ScreenPropType) => {
+  const { addCard } = useCardContext();
   const [form, setForm] = useState({
     cardType: "",
     cardNumber: "",
@@ -17,6 +21,30 @@ const AddNewCard = ({ navigation }: ScreenPropType) => {
     expires: "",
     cvv: "",
   });
+  const [isSuccess, setIsSuccess] = useState(false);
+
+  useEffect(() => {
+    detectCardType(form.cardNumber);
+  }, [form.cardNumber]);
+
+  function detectCardType(cardNumber: string) {
+    let cardType = "Unknown";
+
+    if (/^4/.test(cardNumber)) {
+      cardType = "visa";
+    } else if (/^5[1-5]/.test(cardNumber)) {
+      cardType = "master";
+    } else if (/^(352[89]|35[3-8][0-9])/.test(cardNumber)) {
+      cardType = "jcb";
+    } else {
+      cardType = "unknown";
+    }
+
+    setForm((prev) => ({
+      ...prev,
+      cardType,
+    }));
+  }
 
   const formatCardNumber = (text: string) => {
     // Remove non-digit characters
@@ -38,15 +66,53 @@ const AddNewCard = ({ navigation }: ScreenPropType) => {
     return formatted.trim();
   };
 
-  const handleChange = (cardType: string) => {
-    setForm({
-      ...form,
-      cardType,
-    });
-  };
+  const handleAddCard = async () => {
+    // console.log(form);
 
-  const handleAddCard = () => {
-    console.log(form);
+    // name: "BUMBIN ARAUPORN",
+    // city: "Bangkok",
+    // postal_code: 10320,
+    // number: "4242424242424242",
+    // expiration_month: 2,
+    // expiration_year: 27,
+    // security_code: 111,
+
+    try {
+      const data = await Omise.createToken({
+        card: {
+          name: form.holderName,
+          city: "Bangkok",
+          postal_code: 10320,
+          number: form.cardNumber,
+          expiration_month: parseInt(form.expires.split("/")[0]),
+          expiration_year: parseInt(form.expires.split("/")[1]),
+          security_code: form.cvv,
+        },
+      });
+      // console.log("data", JSON.stringify(data));
+      if (data && data.id && data.id.startsWith("tokn_")) {
+        setIsSuccess(true);
+        addCard({
+          omiseToken: data.id,
+          cardId: data.card.id,
+          cardNumber: form.cardNumber,
+          cardHolderName: data.card.name,
+          cardType: form.cardType,
+          expires: form.expires,
+        });
+        Toast.show({
+          type: "success",
+          text1: "New card is added!",
+        });
+      }
+    } catch (error) {
+      // console.log("Error>>", error);
+      setIsSuccess(false);
+      Toast.show({
+        type: "error",
+        text1: "Card information is invalid!",
+      });
+    }
   };
   return (
     <SafeAreaView>
@@ -61,12 +127,7 @@ const AddNewCard = ({ navigation }: ScreenPropType) => {
               setForm({ ...form, cardNumber: formatCardNumber(e) })
             }
             otherStyles="mb-7"
-            EndControl={() => (
-              <CardTypeRadio
-                cardType={form.cardType}
-                handleCardType={handleChange}
-              />
-            )}
+            EndControl={() => <CardType cardType={form.cardType} />}
             maxLength={19}
             keyboardType="numeric"
           />
@@ -114,8 +175,14 @@ const AddNewCard = ({ navigation }: ScreenPropType) => {
             />
           </View>
         </View>
-        <PrimaryButton handlePress={handleAddCard} btnText="Add Card"/>
+        <PrimaryButton handlePress={handleAddCard} btnText="Add Card" />
       </Container>
+      <Toast
+        position="bottom"
+        visibilityTime={1500}
+        bottomOffset={200}
+        onHide={() => isSuccess && navigation.navigate("Card List")}
+      />
     </SafeAreaView>
   );
 };

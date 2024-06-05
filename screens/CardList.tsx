@@ -7,44 +7,15 @@ import Container from "@/components/Container";
 import Card from "@/components/Card";
 import CardFlatList from "@/components/CardFlatList";
 import { CARDS } from "@/constants/dummy";
+import { CardProvider } from "@/hooks/CardDataProvider";
+import { useCardContext } from "@/hooks/useCardContext";
 
-const CardList = ({ navigation, cards }: CardListScreenPropType) => {
+const CardList = ({ navigation }: CardListScreenPropType) => {
+  const { cards } = useCardContext();
   return (
     <SafeAreaView>
       <CustomHeader navigation={navigation} title="Cards" canAddNew={true} />
-      {/* <Container otherStyles="h-full" isScrollView={true}>
-        <Card
-          cardType="visa"
-          cardNumber="4761-6400-1234-6520"
-          cardHolderName="Ty Lee"
-          expires="12/25"
-        />
-        <Card
-          cardType="master"
-          cardNumber="4761-6400-1234-4489"
-          cardHolderName="Ty Lee"
-          expires="12/25"
-        />
-        <Card
-          cardType="jcb"
-          cardNumber="4761-6400-1234-3292"
-          cardHolderName="Ty Lee"
-          expires="12/25"
-        />
-        <Card
-          cardType="jcb"
-          cardNumber="4761-6400-1234-3292"
-          cardHolderName="Ty Lee"
-          expires="12/25"
-        />
-        <Card
-          cardType="jcb"
-          cardNumber="4761-6400-1234-3292"
-          cardHolderName="Ty Lee"
-          expires="12/25"
-        />
-      </Container> */}
-      <CardFlatList data={CARDS} navigation={navigation} />
+      <CardFlatList data={cards} navigation={navigation} />
     </SafeAreaView>
   );
 };

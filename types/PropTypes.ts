@@ -25,10 +25,12 @@ export interface EmptyStatePropType {
 }
 
 export interface CardType {
-  cardType: "visa" | "master" | "jcb";
+  cardType?: "visa" | "master" | "jcb" | string;
   cardNumber: string;
   cardHolderName: string;
   expires: string;
+  cardId?: string;
+  omiseToken?: string;
 }
 
 export interface CardListScreenPropType {
@@ -68,4 +70,9 @@ export interface ComponentPropType {
   children: any;
   isScrollView?: boolean;
   [key: string]: any;
+}
+
+export interface CardContextType {
+  cards: CardType[];
+  addCard: (newCard: CardType) => void;
 }
