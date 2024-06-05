@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "payment-app-react-native",
+    "slug": "payment-app-react-native",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "package": "com.payment.omise",
+      "bundleIdentifier": "com.payment.omise"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.payment.omise"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
