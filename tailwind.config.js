@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./App.{js,jsx,ts,tsx}", "./screens/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./App.{js,jsx,ts,tsx}",
+    "./screens/**/*.{js,jsx,ts,tsx}",
+    "./components/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -8,6 +12,7 @@ module.exports = {
         secondary: {
           DEFAULT: "#00000",
           // 100: "#",
+          15: "#00000026",
           // 200: "#",
         },
         mint: {
@@ -25,6 +30,16 @@ module.exports = {
         fcregular: ["FC_Subject-Rounded_Regular", "sans-serif"],
         fcbold: ["FC_Subject-Rounded_Bold", "sans-serif"],
       },
+    },
+    fontSize: {
+      xs: "10px",
+      sm: "13px",
+      base: "15px",
+      xl: "16px",
+      "2xl": "17px",
+      "3xl": "30px",
+      "4xl": "36px",
+      "5xl": "48px",
     },
   },
   plugins: [],

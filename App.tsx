@@ -6,10 +6,11 @@ import Home from "./screens/Home";
 import CardList from "./screens/CardList";
 import AddNewCard from "./screens/AddNewCard";
 import { Image, Text } from "react-native";
-import { styles } from "./constants";
+import { icons, styles } from "./constants";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { useEffect } from "react";
+import IconButton from "./components/IconButton";
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -27,9 +28,27 @@ export default function App() {
     <>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Home">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Card List" component={CardList} />
-          <Stack.Screen name="Add New Card" component={AddNewCard} />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Card List"
+            component={CardList}
+            options={{
+              headerShown: false,
+            }}
+          />
+          <Stack.Screen
+            name="Add New Card"
+            component={AddNewCard}
+            options={{
+              headerShown: false,
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
       <StatusBar backgroundColor={styles.colors.primary} />
