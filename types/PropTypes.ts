@@ -1,5 +1,17 @@
 import { NavigationProp } from "@react-navigation/native";
+import React, { Component, ReactElement } from "react";
 import { GestureResponderEvent, ImageSourcePropType } from "react-native";
+
+export interface FormFieldPropType {
+  title: string;
+  value: string;
+  type?: string;
+  placeholder?: string;
+  handleChangeText: (text: string) => void;
+  EndControl?: () => React.JSX.Element;
+  otherStyles?: string;
+  [key: string]: any;
+}
 
 export interface CardFlatListPropType {
   data: CardType[];
@@ -31,6 +43,11 @@ export interface AddNewCardScreenPropType {
 export interface ScreenPropType {
   navigation: NavigationProp<any, any>;
   [key: string]: any;
+}
+
+export interface ButtonPropType {
+  btnText: string;
+  handlePress: (event: GestureResponderEvent) => void;
 }
 export interface IconButtonPropType {
   iconSource: ImageSourcePropType;

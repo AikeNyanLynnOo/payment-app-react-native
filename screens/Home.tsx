@@ -6,26 +6,23 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { ScreenPropType } from "@/types/PropTypes";
 import CustomHeader from "@/components/CustomHeader";
 import Container from "@/components/Container";
+import PrimaryButton from "@/components/PrimaryButton";
+import LandingText from "@/components/LandingText";
 
 const Home = ({ navigation }: ScreenPropType) => {
   return (
-    <SafeAreaView>
-      <View className="h-full bg-primary">
-        <Container>
-          <Text className="text-blue-500 font-fcbold">Home page</Text>
-          <Text className="text-blue-500">Key - {OMISE_PUBLIC_KEY}</Text>
-          <Image
-            source={images.visa}
-            resizeMode="contain"
-            className="h-[180px] w-[180px] border border-blue-100 rounded-3xl"
-          />
-          <TouchableOpacity
-            className="bg-mint w-full mx-auto min-h-[45px] flex justify-center items-center rounded-full"
-            onPress={() => navigation.navigate("Card List")}
-          >
-            <Text className="text-white font-fcbold text-xl">Add Card</Text>
-          </TouchableOpacity>
-        </Container>
+    <SafeAreaView className="bg-primary">
+      <View className="h-full bg-primary flex justify-between pb-[50px] px-5">
+        <Image
+          source={images.logo}
+          resizeMode="contain"
+          className="h-[200px] w-[200px] mx-auto"
+        />
+        <LandingText />
+        <PrimaryButton
+          handlePress={() => navigation.navigate("Card List")}
+          btnText="Go To Cards"
+        />
       </View>
     </SafeAreaView>
   );

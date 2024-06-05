@@ -17,6 +17,7 @@ const colors = {
     DEFAULT: "#808080",
     100: "#CDCDCD",
     200: "#8F8F8F",
+    300: "#E6E3E6",
   },
 };
 const shadowStyles = StyleSheet.create({

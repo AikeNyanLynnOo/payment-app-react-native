@@ -28,7 +28,7 @@ const CustomHeader = ({
       {canAddNew && (
         <IconButton
           iconSource={icons.add}
-          handlePress={navigation.goBack}
+          handlePress={() => navigation.navigate("Add New Card")}
           otherIconStyles="h-4 w-4"
         />
       )}
