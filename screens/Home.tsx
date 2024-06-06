@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { OMISE_PUBLIC_KEY } from "@env";
 import { icons, images } from "../constants";
 import { SafeAreaView } from "react-native-safe-area-context";

@@ -7,6 +7,7 @@ export interface FormFieldPropType {
   value: string;
   type?: string;
   placeholder?: string;
+  helperText?: string;
   handleChangeText: (text: string) => void;
   EndControl?: () => React.JSX.Element;
   otherStyles?: string;
@@ -29,6 +30,7 @@ export interface CardType {
   cardNumber: string;
   cardHolderName: string;
   expires: string;
+  cvv?: string;
   cardId?: string;
   omiseToken?: string;
 }
@@ -49,7 +51,10 @@ export interface ScreenPropType {
 
 export interface ButtonPropType {
   btnText: string;
+  disabled?: boolean;
+  isLoading?: boolean;
   handlePress: (event: GestureResponderEvent) => void;
+  otherStyles?: string;
 }
 export interface IconButtonPropType {
   iconSource: ImageSourcePropType;
@@ -75,4 +80,44 @@ export interface ComponentPropType {
 export interface CardContextType {
   cards: CardType[];
   addCard: (newCard: CardType) => void;
+  updateCard: (newCardInfo: CardType, oldCardId?: string) => void;
+  isModalOpen: boolean;
+  setIsModalOpen: Function;
+  // isPaymentSuccess: boolean;
+  // setIsPaymentSuccess: Function;
+  activeOmiseToken: string;
+  setActiveOmiseToken: Function;
+  paymentState: PaymentObjType;
+  initiatePayment: Function;
+  resetPayment: Function;
+}
+
+export interface PaymentFormPropType {
+  description: string;
+  currency: string;
+  amount: string;
+}
+
+export interface PaymentModalPropType {
+  title?: string;
+  isOpen: boolean;
+  setIsOpen: Function;
+  form: PaymentFormPropType;
+  setForm: Function;
+  modalAction: (event: GestureResponderEvent) => void;
+}
+
+export interface ChargePropType {
+  description: string;
+  amount: number;
+  currency: string;
+  capture: boolean;
+  card?: string;
+}
+
+export interface PaymentObjType {
+  loading: boolean;
+  success: boolean;
+  error: string | null;
+  data: any;
 }

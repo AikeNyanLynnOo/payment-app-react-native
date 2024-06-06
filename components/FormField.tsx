@@ -11,6 +11,7 @@ const FormField = ({
   placeholder,
   handleChangeText,
   EndControl = () => <></>,
+  helperText,
   otherStyles,
   ...props
 }: FormFieldPropType) => {
@@ -30,6 +31,7 @@ const FormField = ({
         />
         <EndControl />
       </View>
+      {helperText && <Text className="text-sm font-fcbold text-gray-200">{helperText}</Text>}
     </View>
   );
 };

@@ -1,34 +1,98 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CardType } from "@/types/PropTypes";
 import { images, styles } from "@/constants";
 import { maskNumbers } from "../utils/commonFunction";
 import CardNumDisplay from "./CardNumDisplay";
 import GroupText from "./GroupText";
-import Omise from "@/constants/omise_config";
+import Omise, { createCharge } from "@/constants/omise_config";
+import PaymentModal from "./PaymentModal";
+import Toast from "react-native-toast-message";
 
+import { OMISE_API, OMISE_PUBLIC_KEY } from "@env";
+import { useCardContext } from "@/hooks/useCardContext";
 const Card = ({
+  cardId,
   cardType,
   cardNumber,
   cardHolderName,
   expires,
+  cvv,
   omiseToken,
 }: CardType) => {
+  const {
+    updateCard,
+    isModalOpen,
+    setIsModalOpen,
+    activeOmiseToken,
+    setActiveOmiseToken,
+    paymentState,
+    initiatePayment,
+    resetPayment,
+  } = useCardContext();
+
+  const { loading, success, data } = paymentState;
+
+  const [form, setForm] = useState({
+    description: "",
+    amount: "",
+    currency: "",
+  });
+
+  const clearForm = () => {
+    setForm({ description: "", amount: "", currency: "" });
+  };
+
+  const handlePressCard = async () => {
+    resetPayment();
+    try {
+      const data = await Omise.createToken({
+        card: {
+          name: cardHolderName,
+          city: "Bangkok",
+          postal_code: 10320,
+          number: cardNumber,
+          expiration_month: parseInt(expires.split("/")[0]),
+          expiration_year: parseInt(expires.split("/")[1]),
+          security_code: cvv,
+        },
+      });
+      if (data && data.id && data.id.startsWith("tokn_")) {
+        setIsModalOpen(!isModalOpen);
+        updateCard(
+          {
+            omiseToken: data.id,
+            cardId: data.card.id,
+            cardNumber,
+            cardHolderName,
+            cardType,
+            expires,
+          },
+          cardId
+        );
+        setActiveOmiseToken(data.id);
+      }
+    } catch (error) {
+      // console.log("Error>>", error);
+      setActiveOmiseToken("");
+    }
+  };
   const makePayment = async () => {
-    // try {
-    //   const data = await Omise.createCharge({
-    //     description: "some description",
-    //     amount: 500000, // 5,000 baht
-    //     currency: "thb",
-    //     capture: true,
-    //     card: omiseToken,
-    //   });
-    // } catch (error) {}
+    await initiatePayment(
+      {
+        description: form.description,
+        amount: (form.amount && parseInt(form.amount)) || 0,
+        currency: form.currency,
+        capture: true,
+        card: activeOmiseToken,
+      },
+      clearForm
+    );
   };
 
   return (
     <TouchableOpacity
-      onPress={makePayment} // go to payment
+      onPress={handlePressCard} // go to payment
       className="min-h-[160px] p-6 mb-5"
       style={styles.shadowStyles.shadow}
     >
@@ -65,6 +129,13 @@ const Card = ({
         <GroupText title="Name on Card" subTitle={cardHolderName} />
         <GroupText title="Expires" subTitle={expires} />
       </View>
+      <PaymentModal
+        isOpen={isModalOpen}
+        setIsOpen={setIsModalOpen}
+        modalAction={makePayment}
+        form={form}
+        setForm={setForm}
+      />
     </TouchableOpacity>
   );
 };

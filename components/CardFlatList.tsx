@@ -39,6 +39,7 @@ const CardFlatList = ({ data, navigation }: CardFlatListPropType) => {
           cardHolderName={item.cardHolderName}
           expires={item.expires}
           omiseToken={item.omiseToken}
+          cardId={item.cardId}
         />
       )}
       ListEmptyComponent={() => (

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomHeader from "../components/CustomHeader";
 import { CardListScreenPropType } from "../types/PropTypes";
@@ -9,6 +9,8 @@ import CardFlatList from "@/components/CardFlatList";
 import { CARDS } from "@/constants/dummy";
 import { CardProvider } from "@/hooks/CardDataProvider";
 import { useCardContext } from "@/hooks/useCardContext";
+import PaymentModal from "@/components/PaymentModal";
+import Toast from "react-native-toast-message";
 
 const CardList = ({ navigation }: CardListScreenPropType) => {
   const { cards } = useCardContext();

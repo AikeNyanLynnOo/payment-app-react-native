@@ -67,16 +67,6 @@ const AddNewCard = ({ navigation }: ScreenPropType) => {
   };
 
   const handleAddCard = async () => {
-    // console.log(form);
-
-    // name: "BUMBIN ARAUPORN",
-    // city: "Bangkok",
-    // postal_code: 10320,
-    // number: "4242424242424242",
-    // expiration_month: 2,
-    // expiration_year: 27,
-    // security_code: 111,
-
     try {
       const data = await Omise.createToken({
         card: {

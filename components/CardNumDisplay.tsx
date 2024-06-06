@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import React from "react";
-
 const CardNumDisplay = ({ cardNumStr }: { cardNumStr: string }) => {
   return (
     <View className="flex flex-row items-center mt-4">
@@ -21,5 +20,3 @@ const CardNumDisplay = ({ cardNumStr }: { cardNumStr: string }) => {
 };
 
 export default CardNumDisplay;
-
-const styles = StyleSheet.create({});
