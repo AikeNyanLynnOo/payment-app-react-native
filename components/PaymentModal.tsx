@@ -98,7 +98,7 @@ const PaymentModal = ({
         position="bottom"
         visibilityTime={1000}
         bottomOffset={110}
-        onHide={() => success && setIsModalOpen(!isModalOpen)}
+        onHide={() => setIsModalOpen(!isModalOpen)}
       />
     </Modal>
   );
