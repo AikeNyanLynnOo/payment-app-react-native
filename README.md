@@ -1,7 +1,7 @@
 ## Welcome to Omise Payment App 👋
 
-<p style="text-align:center;">
-<image style="width:50%;height: auto; object-fit:cover;" src="https://github.com/AikeNyanLynnOo/payment-app-react-native/blob/main/assets/payment_record.gif?raw=true"/>
+<p style="text-align:center; width: 100%;">
+<image style="width:50%;margin-left:auto; margin-right: auto; height: auto; object-fit:cover;" src="https://github.com/AikeNyanLynnOo/payment-app-react-native/blob/main/assets/payment_record.gif?raw=true"/>
 </p>
 
 ### Features & Best Practice covered
