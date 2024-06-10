@@ -7,6 +7,7 @@
 ### Features & Best Practice covered
 
 - ✅ Expo status bar, expo-font, expo-splash-screen, expo-constants for easy-to-main exporting for fonts/images & styles
+- ✅ Use React Navigation Native Stack rather than Stack for better performance since native stack is based on the native APIs `UINavigationController` on iOS and `Fragment` on Android
 - ✅ NativeWind, TailwindCSS, React Native safe area context
 - ✅ Toast message with react-native-toast-message, currency drop down with react-native-select-dropdown
 - ✅ Omise react native package
