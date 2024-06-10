@@ -57,25 +57,40 @@ export const CardProvider = ({ children }: { children: ReactNode }) => {
       data: null,
     });
     try {
-      const res: any = await createCharge({
+      const { paid, ...paymentInfo }: any = await createCharge({
         description: payInfo.description,
         amount: (payInfo.amount && parseInt(payInfo.amount)) || 0,
         currency: payInfo.currency,
         capture: payInfo.capture,
         card: payInfo.card,
       });
-      if (res && res.paid) {
+
+      if (!paid) {
         setPaymentState({
           loading: false,
-          success: true,
-          error: null,
-          data: res,
+          success: false,
+          error: "Payment failed",
+          data: null,
         });
         Toast.show({
-          type: "success",
-          text1: `Payment Successful, Amount - ${res.amount} ${res.currency}`,
+          type: "error",
+          text1: `Payment Failed, Amount. Please try again.`,
         });
+        return;
       }
+      setPaymentState({
+        loading: false,
+        success: true,
+        error: null,
+        data: {
+          paid,
+          ...paymentInfo,
+        },
+      });
+      Toast.show({
+        type: "success",
+        text1: `Payment Successful, Amount - ${paymentInfo.amount} ${paymentInfo.currency}`,
+      });
       // clear form
       callback();
     } catch (error: any) {
